@@ -1,2 +1,7 @@
-# sample_codes
-This repository provides sample codes for Terabee products
+# Terabee sample code repository
+This repository provides python sample codes to get started with the following Terabee products:
+
+* TeraRanger Evo 64px
+* TeraRanger Evo Thermal
+
+More info about Terabee product [here](https://www.terabee.com/distance-sensors/).

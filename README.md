@@ -4,4 +4,4 @@ This repository provides python sample codes to get started with the following T
 * TeraRanger Evo 64px
 * TeraRanger Evo Thermal
 
-More info about Terabee product [here](https://www.terabee.com/distance-sensors/).
+More info about Terabee products [here](https://www.terabee.com/distance-sensors/).

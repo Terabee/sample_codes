@@ -12,7 +12,10 @@
  
 
 #include <Wire.h>
-#define SENSOR_ADDR 0x30
+// For TeraRanger Evo
+#define SENSOR_ADDR 0x31  
+// For TeraRanger One
+// #define SENSOR_ADDR 0x30
 
 // Create a Cyclic Redundancy Checks table used in the "crc8" function
 static const uint8_t crc_table[] = {

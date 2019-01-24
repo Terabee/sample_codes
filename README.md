@@ -36,6 +36,6 @@ This repository provides python and C sample codes to get started with the follo
 
 ## Connection for UART/RPI
 
-### With TeraRanger One
+### With TeraRanger Evo
 
 <img src="https://www.terabee.com/wp-content/uploads/2019/01/RP-UART.jpg" width="500"/>

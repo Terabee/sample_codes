@@ -5,6 +5,7 @@ This repository provides python and C sample codes to get started with the follo
 * TeraRanger Evo3m
 * TeraRanger Evo 64px
 * TeraRanger Evo Thermal
+* TeraRanger Multiflex
 
 ## Connection for I2C 
 

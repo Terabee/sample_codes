@@ -7,28 +7,35 @@ This repository provides python and C sample codes to get started with the follo
 * TeraRanger Evo Thermal
 * TeraRanger Multiflex
 
-## Connection for I2C 
-
-### With TeraRanger One 
-
-<img src="https://www.terabee.com/wp-content/uploads/2019/01/Connection_TeraRangerOne_ArduinoMega_I2C.png" width="500"/>
+## Connection for I2C/Arduino
 
 ### With TeraRanger Evo
 
-Please find the pin connection on the specification sheet of the sensor available at this link:
+<img src="http://www.terabee.com/wp-content/uploads/2019/01/Arduino-I2C.jpg" width="500"/>
 
-https://www.terabee.com/wp-content/uploads/2018/09/User-Manual-for-TeraRanger-Evo-single-point-distance-sensors-and-backboards-.pdf
+### With TeraRanger One
 
-## Connection for UART
+<img src="https://www.terabee.com/wp-content/uploads/2019/01/Connection_TeraRangerOne_ArduinoMega_I2C.png" width="500"/>
+
+## Connection for UART/Arduino
+
+### With TeraRanger Evo
+
+<img src="http://www.terabee.com/wp-content/uploads/2019/01/Arduino-UART.jpg" width="500"/>
 
 ### With TeraRanger One
 
 <img src="https://www.terabee.com/wp-content/uploads/2019/01/Connection_TeraRangerOne_ArduinoMega_UART.png" width="500"/>
 
+
+## Connection for I2C/RPI
+
 ### With TeraRanger Evo
 
-Please find the pin connection on the specification sheet of the sensor available at this link:
+<img src="https://www.terabee.com/wp-content/uploads/2019/01/RPi-I2C.jpg" width="500"/>
 
-https://www.terabee.com/wp-content/uploads/2018/09/User-Manual-for-TeraRanger-Evo-single-point-distance-sensors-and-backboards-.pdf
+## Connection for UART/RPI
 
-More info about Terabee products [here](https://www.terabee.com/distance-sensors/).
+### With TeraRanger One
+
+<img src="https://www.terabee.com/wp-content/uploads/2019/01/RP-UART.jpg" width="500"/>

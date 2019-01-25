@@ -1,8 +1,7 @@
 # Terabee sample code repository
 This repository provides python and C sample codes to get started with the following Terabee products:
 
-* TeraRanger Evo60m
-* TeraRanger Evo3m
+* TeraRanger Evo 60m | Evo 3m | Evo 600Hz
 * TeraRanger Evo 64px
 * TeraRanger Evo Thermal
 * TeraRanger Multiflex

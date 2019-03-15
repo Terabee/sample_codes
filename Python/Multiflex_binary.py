@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Example TeraRanger MultiFlex configuration script
+Example TeraRanger MultiFlex configuration script.
+For more information about how to use this script, please refer to this document:
+https://www.terabee.com/wp-content/uploads/2017/09/TR-MF-Python-ReadMe.pdf
 """
 import sys
 import binascii

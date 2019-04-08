@@ -6,35 +6,37 @@ This repository provides python and C sample codes to get started with the follo
 * TeraRanger Evo Thermal
 * TeraRanger Multiflex
 
+You can find more information on our products on our website [here](https://www.terabee.com/).
+
 ## Connection for I2C/Arduino
 
 ### With TeraRanger Evo
 
-<img src="http://www.terabee.com/wp-content/uploads/2019/01/Arduino-I2C.jpg" width="500"/>
+<img src="https://www.terabee.com/wp-content/uploads/2019/04/Arduino-I2C.jpg" width="500"/>
 
 ### With TeraRanger One
 
-<img src="https://www.terabee.com/wp-content/uploads/2019/01/Connection_TeraRangerOne_ArduinoMega_I2C.png" width="500"/>
+<img src="https://www.terabee.com/wp-content/uploads/2019/04/Connection_TeraRangerOne_ArduinoMega_I2C.png" width="500"/>
 
 ## Connection for UART/Arduino
 
 ### With TeraRanger Evo
 
-<img src="http://www.terabee.com/wp-content/uploads/2019/01/Arduino-UART.jpg" width="500"/>
+<img src="https://www.terabee.com/wp-content/uploads/2019/04/Arduino-UART.jpg " width="500"/>
 
 ### With TeraRanger One
 
-<img src="https://www.terabee.com/wp-content/uploads/2019/01/Connection_TeraRangerOne_ArduinoMega_UART.png" width="500"/>
+<img src="https://www.terabee.com/wp-content/uploads/2019/04/Connection_TeraRangerOne_ArduinoMega_UART.png" width="500"/>
 
 
 ## Connection for I2C/RPI
 
 ### With TeraRanger Evo
 
-<img src="https://www.terabee.com/wp-content/uploads/2019/01/RPi-I2C.jpg" width="500"/>
+<img src="https://www.terabee.com/wp-content/uploads/2019/04/RPi-I2C.jpg" width="500"/>
 
 ## Connection for UART/RPI
 
 ### With TeraRanger Evo
 
-<img src="https://www.terabee.com/wp-content/uploads/2019/01/RP-UART.jpg" width="500"/>
+<img src="https://www.terabee.com/wp-content/uploads/2019/04/RP-UART.jpg" width="500"/>

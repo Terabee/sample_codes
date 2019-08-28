@@ -43,13 +43,14 @@ class EvoThermal():
             with self.serial_lock:
                 ### Polls for header ###
                 header = self.port.read(2)
-                header = unpack('H', str(header))
+                # header = unpack('H', str(header))
+                header = unpack('H', header)
                 if header[0] == 13:
                     ### Header received, now read rest of frame ###
                     data = self.port.read(2068)
                     ### Calculate CRC for frame (except CRC value and header) ###
                     calculatedCRC = self.crc32(data[:2064])
-                    data = unpack("H" * 1034, str(data))
+                    data = unpack("H" * 1034, data)
                     receivedCRC = (data[1032] & 0xFFFF ) << 16
                     receivedCRC |= data[1033] & 0xFFFF
                     TA = data[1024]
@@ -79,17 +80,7 @@ class EvoThermal():
                 ack += self.port.read(3)
             ### Check ACK crc8 ###
             crc8 = self.crc8(ack[:3])
-            if crc8 == ord(ack[3]):
-                ### Check if ACK or NACK ###
-                if ord(ack[2]) == 0:
-                    print("Command acknowledged")
-                    return True
-                else:
-                    print("Command not acknowledged")
-                    return False
-            else:
-                print("Error in ACK checksum")
-                return False
+
 
     def run(self):
         ### Get frame and print it ###

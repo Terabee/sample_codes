@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import numpy as np
@@ -15,10 +15,10 @@ class EvoThermal():
         portname = None
         for p in ports:
             if ":5740" in p[2]:
-                print "EvoThermal found on port " + p[0]
+                print("EvoThermal found on port " + p[0])
                 portname = p[0]
         if portname is None:
-            print "Sensor not found. Please Check connections."
+            print("Sensor not found. Please Check connections.")
             exit()
         ser = serial.Serial(
                             port=portname,  # To be adapted if using UART backboard
@@ -59,7 +59,7 @@ class EvoThermal():
                     if calculatedCRC == receivedCRC:
                         got_frame = True
                     else:
-                        print "Bad CRC. Dropping frame"
+                        print("Bad CRC. Dropping frame")
         self.port.flushInput()
         ### Data is sent in dK, this converts it to celsius ###
         data = (data/10.0) - 273.15
@@ -82,19 +82,19 @@ class EvoThermal():
             if crc8 == ord(ack[3]):
                 ### Check if ACK or NACK ###
                 if ord(ack[2]) == 0:
-                    print "Command acknowledged"
+                    print("Command acknowledged")
                     return True
                 else:
-                    print "Command not acknowledged"
+                    print("Command not acknowledged")
                     return False
             else:
-                print "Error in ACK checksum"
+                print("Error in ACK checksum")
                 return False
 
     def run(self):
         ### Get frame and print it ###
         frame = self.get_thermals()
-        print frame
+        print(frame)
 
     def stop(self):
         ### Deactivate USB VCP output and close port ###

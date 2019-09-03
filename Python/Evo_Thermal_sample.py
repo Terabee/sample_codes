@@ -80,7 +80,17 @@ class EvoThermal():
                 ack += self.port.read(3)
             ### Check ACK crc8 ###
             crc8 = self.crc8(ack[:3])
-
+            if crc8 == ack[3]:
+                ### Check if ACK or NACK ###
+                if ack[2] == 0:
+                    print("Command acknowledged")
+                    return True
+                else:
+                    print("Command not acknowledged")
+                    return False
+            else:
+                print("Error in ACK checksum")
+                return False
 
     def run(self):
         ### Get frame and print it ###

@@ -25,6 +25,8 @@ class Evo_64px(object):
         self.crc32 = crcmod.predefined.mkPredefinedCrcFun('crc-32-mpeg')
         self.crc8 = crcmod.predefined.mkPredefinedCrcFun('crc-8')
         self.serial_lock = threading.Lock()
+        self.activate_command   = (0x00, 0x52, 0x02, 0x01, 0xDF)
+        self.deactivate_command = (0x00, 0x52, 0x02, 0x00, 0xD8)
 
     def get_depth_array(self):
         '''
@@ -36,11 +38,11 @@ class Evo_64px(object):
             with self.serial_lock:
                 frame = self.port.readline()
             if len(frame) == 269:
-                if ord(frame[0]) == 0x11 and self.crc_check(frame):  # Check for range frame header and crc
+                if frame[0] == 0x11 and self.crc_check(frame):  # Check for range frame header and crc
                     dec_out = []
                     for i in range(1, 65):
-                        rng = ord(frame[2 * i - 1]) << 7
-                        rng = rng | (ord(frame[2 * i]) & 0x7F)
+                        rng = frame[2 * i - 1] << 7
+                        rng = rng | (frame[2 * i] & 0x7F)
                         dec_out.append(rng & 0x3FFF)
                     depth_array = [dec_out[i:i + 8] for i in range(0, len(dec_out), 8)]
                     depth_array = np.array(depth_array)
@@ -53,14 +55,14 @@ class Evo_64px(object):
 
     def crc_check(self, frame):
         index = len(frame) - 9  # Start of CRC
-        crc_value = (ord(frame[index]) & 0x0F) << 28
-        crc_value |= (ord(frame[index + 1]) & 0x0F) << 24
-        crc_value |= (ord(frame[index + 2]) & 0x0F) << 20
-        crc_value |= (ord(frame[index + 3]) & 0x0F) << 16
-        crc_value |= (ord(frame[index + 4]) & 0x0F) << 12
-        crc_value |= (ord(frame[index + 5]) & 0x0F) << 8
-        crc_value |= (ord(frame[index + 6]) & 0x0F) << 4
-        crc_value |= (ord(frame[index + 7]) & 0x0F)
+        crc_value = (frame[index]) & 0x0F << 28
+        crc_value |= (frame[index + 1] & 0x0F) << 24
+        crc_value |= (frame[index + 2] & 0x0F) << 20
+        crc_value |= (frame[index + 3] & 0x0F) << 16
+        crc_value |= (frame[index + 4] & 0x0F) << 12
+        crc_value |= (frame[index + 5] & 0x0F) << 8
+        crc_value |= (frame[index + 6] & 0x0F) << 4
+        crc_value |= (frame[index + 7] & 0x0F)
         crc_value = crc_value & 0xFFFFFFFF
         crc32 = self.crc32(frame[:index])
 
@@ -95,11 +97,11 @@ class Evo_64px(object):
                 return False
 
     def start_sensor(self):
-        if self.send_command("\x00\x52\x02\x01\xDF".encode()):
+        if self.send_command(self.activate_command):
             print("Sensor started successfully")
 
     def stop_sensor(self):
-        if self.send_command("\x00\x52\x02\x00\xD8".encode()):
+        if self.send_command(self.deactivate_command):
             print("Sensor stopped successfully")
 
     def run(self):

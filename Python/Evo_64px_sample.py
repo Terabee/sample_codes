@@ -1,5 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import argparse
 import numpy as np
 import serial
 import crcmod.predefined
@@ -8,8 +9,8 @@ import threading
 
 class Evo_64px(object):
 
-    def __init__(self):
-        self.portname = "/dev/ttyACM0"  # To be adapted if using UART backboard
+    def __init__(self, portname):
+        self.portname = portname # To be adapted if using UART backboard
         self.baudrate = 115200  # 3000000 for UART backboard
 
         # Configure the serial connections (the parameters differs on the device you are connecting to)
@@ -45,7 +46,7 @@ class Evo_64px(object):
                     depth_array = np.array(depth_array)
                     got_frame = True
             else:
-                print "Invalid frame length: {}".format(len(frame))
+                print("Invalid frame length: {}".format(len(frame)))
 
         depth_array.astype(np.uint16)
         return depth_array
@@ -66,7 +67,7 @@ class Evo_64px(object):
         if crc32 == crc_value:
             return True
         else:
-            print "Discarding current buffer because of bad checksum"
+            print("Discarding current buffer because of bad checksum")
             return False
 
     def send_command(self, command):
@@ -82,24 +83,24 @@ class Evo_64px(object):
 
             # Check ACK crc8
             crc8 = self.crc8(ack[:3])
-            if crc8 == ord(ack[3]):
+            if crc8 == ack[3]:
                 # Check if ACK or NACK
-                if ord(ack[2]) == 0:
+                if ack[2] == 0:
                     return True
                 else:
-                    print "Command not acknowledged"
+                    print("Command not acknowledged")
                     return False
             else:
-                print "Error in ACK checksum"
+                print("Error in ACK checksum")
                 return False
 
     def start_sensor(self):
-        if self.send_command("\x00\x52\x02\x01\xDF"):
-            print "Sensor started successfully"
+        if self.send_command("\x00\x52\x02\x01\xDF".encode()):
+            print("Sensor started successfully")
 
     def stop_sensor(self):
-        if self.send_command("\x00\x52\x02\x00\xD8"):
-            print "Sensor stopped successfully"
+        if self.send_command("\x00\x52\x02\x00\xD8".encode()):
+            print("Sensor stopped successfully")
 
     def run(self):
         self.port.flushInput()
@@ -109,12 +110,19 @@ class Evo_64px(object):
         depth_array = []
         while depth_array is not None:
             depth_array = self.get_depth_array()
-            print depth_array
+            print(depth_array)
         else:
             if self.baudrate == 115200:
                 self.stop_sensor()  # Sending VCP stop when connected via USB
 
 
 if __name__ == '__main__':
-    evo_64px = Evo_64px()
+    parser = argparse.ArgumentParser(description="Read data from Evo 64px")
+    parser.add_argument(
+        "--portname",
+        default="/dev/ttyACM0",
+        help="portname, find using ls /dev/tty*",
+    )
+    args = parser.parse_args()
+    evo_64px = Evo_64px(portname=args.portname)
     evo_64px.run()

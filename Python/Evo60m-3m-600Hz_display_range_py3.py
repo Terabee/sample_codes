@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 ###### TeraRanger Evo Example Code STD #######
 #                                            #
 # All rights reserved Terabee France (c) 2018#

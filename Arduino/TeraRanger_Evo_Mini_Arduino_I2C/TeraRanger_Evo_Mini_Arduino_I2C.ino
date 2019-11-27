@@ -1,6 +1,6 @@
 /*
- * This code allows you to check if the I2C communication between the TeraRanger and the Arduino Mega board works.
- * You just need to upload the code to the board with the TeraRanger connected on pins SDA, SCL, GND and RESET.
+ * This code allows you to check if the I2C communication between the TeraRanger and the Arduino board works.
+ * You just need to upload the code to the board with the TeraRanger connected on pins SDA, SCL, GND and 5V.
  * If the supply of the TeraRanger is stopped or interrupted while the code is running, just press the reset button on the board.
  * There are two way to check if the communication works:
  * - the first is to open the serial monitor and check if the distance is printed like this: "Distance in mm: XXX";
@@ -14,8 +14,6 @@
 #include <Wire.h>
 // For TeraRanger Evo
 #define SENSOR_ADDR 0x31  
-// For TeraRanger One
-// #define SENSOR_ADDR 0x30
 
 // Create a Cyclic Redundancy Checks table used in the "crc8" function
 static const uint8_t crc_table[] = {
@@ -63,50 +61,46 @@ uint8_t buf[3];           // The variable "buf[3]" will contain the frame sent b
 uint16_t distance = 0;    // The variable "distance" will contain the distance value in millimeter
 uint8_t CRC = 0;          // The variable "CRC" will contain the checksum to compare at TeraRanger's one
 
+const byte short_mode[2] = {0x02,0x01};
+const byte long_mode[2] = {0x02,0x03};
+
+int inter = 25; // Inter reading delay, replace by 50 if using long mode
 
 void setup() {
   pinMode(13, OUTPUT);    // Initialize digital pin 13 as an output (ERASABLE if the communication works)
   Serial.begin(115200);   // Open serial port 0 (which corresponds to USB port), set data rate to 115200 bps
   Wire.begin();           // Join I2C bus as master
-}
 
+  // Set your sensor mode
+  Wire.beginTransmission(SENSOR_ADDR);
+  Wire.write(short_mode, 2);
+  //Wire.write(long_mode, 2); // Sensor is in long mode when powered up
+  Wire.endTransmission();
+  delay(25);                  // This delay is necessary to ensure mode is switched correctly
+}
 
 // The main loop starts here
 void loop() {
-  Wire.beginTransmission(SENSOR_ADDR);       // Transmit to TR1 (THIS IS THE I2C BASE ADDRESS, CHANGE HERE IN CASE IT IS DIFFERENT)
-  Wire.write(0x00);                   // Sends trigger byte
-  Wire.endTransmission();             // Stop transmitting
-
-  delay(50);                          // Delay in between reads
-
-  Wire.requestFrom(SENSOR_ADDR, 3);          // Read back three bytes from TR1 (THIS IS THE I2C BASE ADDRESS, CHANGE HERE IN CASE IT IS DIFFERENT)
-  buf[0] = Wire.read();               // First byte of distance
-  buf[1] = Wire.read();               // Second byte of distance
-  buf[2] = Wire.read();               // Byte of checksum
   
-  CRC = crc8(buf, 2);                 // Save the "return" checksum in variable "CRC" to compare with the one sent by the TeraRanger
+  Wire.beginTransmission(SENSOR_ADDR);  // Transmit to Evo Mini (THIS IS THE I2C BASE ADDRESS, CHANGE HERE IN CASE IT IS DIFFERENT)
+  Wire.write(0x00);                     // Sends measure trigger byte
+  Wire.endTransmission();               // Stop transmitting
   
-  if (CRC == buf[2]) {                 // If the function crc8 return the same checksum than the TeraRanger, then:
+  Wire.requestFrom(SENSOR_ADDR, 3);     // Read back three bytes from Evo Mini (THIS IS THE I2C BASE ADDRESS, CHANGE HERE IN CASE IT IS DIFFERENT)
+  buf[0] = Wire.read();                 // First byte of distance
+  buf[1] = Wire.read();                 // Second byte of distance
+  buf[2] = Wire.read();                 // Byte of checksum
+  
+  CRC = crc8(buf, 2);                   // Save the "return" checksum in variable "CRC" to compare with the one sent by the TeraRanger
+  
+  if (CRC == buf[2]) {                  // If the function crc8 return the same checksum than the TeraRanger, then:
     distance = (buf[0]<<8) + buf[1];    // Calculate distance in mm
-    Serial.print("Distance in mm : ");                      // Start of the ERASABLE part
-    Serial.println(distance);                               //
-    if ((distance >= 200) && (distance < 400)) {            //
-      analogWrite(13, 0);                                   //
-    }                                                       //
-    else if ((distance >= 400) && (distance < 600)) {       //
-      analogWrite(13, 8);                                   //
-    }                                                       //
-    else if ((distance >= 600) && (distance < 800)) {       //
-      analogWrite(13, 32);                                  //
-    }                                                       //
-    else if ((distance >= 800) && (distance < 1000)) {      //
-      analogWrite(13, 127);                                 //
-    }                                                       //
-    else {                                                  //
-      analogWrite(13, 255);                                 //
-    }                                                       //
-  }                                                         //
-  else {                                                    //
-    Serial.println("CRC error!");                           //
-  }                                                         // End of the ERASABLE part
+    Serial.print("Distance in mm : ");
+    Serial.println(distance);
+  }
+  else {
+    Serial.println("CRC error!");
+  }
+
+  delay(inter);                         // This delay is necessary to prevent reading too many times the same measurement (To be adapted depending on the sensor mode)
 }

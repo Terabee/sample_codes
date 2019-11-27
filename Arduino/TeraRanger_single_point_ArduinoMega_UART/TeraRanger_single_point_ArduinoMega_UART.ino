@@ -1,6 +1,6 @@
 /*
  * This code allows you to check if the UART communication between the TeraRanger and the Arduino Mega board works.
- * You just need to upload the code in the board with the TeraRanger connected on pins TX1, RX1, GND and RESET. Make sure to connect the signal RX of TeraRanger to TX1 of your Arduino and vice versa TX to RX1).
+ * You just need to upload the code in the board with the TeraRanger connected on pins TX1, RX1, GND and 5V. Make sure to connect the signal RX of TeraRanger to TX1 of your Arduino and vice versa TX to RX1).
  * If the supply of the TeraRanger is stopped or interrupted while the code is running, just press the reset button on the board.
  * There are two way to check if the communication works:
  * - the first is to open the serial monitor and check if the distance is printed like this: "Distance in mm: XXX";

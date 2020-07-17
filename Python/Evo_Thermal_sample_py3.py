@@ -22,7 +22,7 @@ class EvoThermal():
             exit()
         ser = serial.Serial(
                             port=portname,  # To be adapted if using UART backboard
-                            baudrate=115200, # 1500000 for UART backboard
+                            baudrate=115200, # 460 800 for UART backboard
                             parity=serial.PARITY_NONE,
                             stopbits=serial.STOPBITS_ONE,
                             bytesize=serial.EIGHTBITS

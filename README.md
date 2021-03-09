@@ -2,7 +2,7 @@
 
 This repository provides Python and C sample codes to get started with the following Terabee products:
 
-* TeraRanger Evo 60m | Evo 3m | Evo 600Hz
+* TeraRanger Evo 60m | Evo 40m | Evo 15m | Evo 3m
 * TeraRanger Evo Mini
 * TeraRanger Evo 64px
 * TeraRanger Evo Thermal
@@ -12,7 +12,7 @@ You can find more information on our products on our website [here](https://www.
 
 ## Connection for I2C/Arduino
 
-### With TeraRanger Evo family (Evo 60m | Evo 3m | Evo 600Hz | Evo Mini)
+### With TeraRanger Evo family (Evo 60m | Evo 40m | Evo 15m | Evo 3m | Evo Mini)
 
 <img src="https://www.terabee.com/wp-content/uploads/2019/04/Arduino-I2C.jpg" width="500"/>
 
@@ -22,7 +22,7 @@ You can find more information on our products on our website [here](https://www.
 
 ## Connection for UART/Arduino
 
-### With TeraRanger Evo family (Evo 60m | Evo 3m | Evo 600Hz | Evo Mini)
+### With TeraRanger Evo family (Evo 60m | Evo 40m | Evo 15m | Evo 3m | Evo Mini)
 
 <img src="https://www.terabee.com/wp-content/uploads/2019/04/Arduino-UART.jpg " width="500"/>
 
@@ -32,7 +32,7 @@ You can find more information on our products on our website [here](https://www.
 
 ## Connection for I2C/RPI
 
-### With TeraRanger Evo family (Evo 60m | Evo 3m | Evo 600Hz | Evo Mini)
+### With TeraRanger Evo family (Evo 60m | Evo 40m | Evo 15m | Evo 3m | Evo Mini)
 
 <img src="https://www.terabee.com/wp-content/uploads/2019/04/RPi-I2C.jpg" width="500"/>
 
